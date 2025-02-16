@@ -62,6 +62,20 @@ df["Datetime"] = pd.to_datetime(df["Datetime"], errors='coerce')
 # ✅ Fix: Show the selected timezone in the dashboard
 st.write(f"Timezone: {timezone}")
 
+
+# ✅ Fetch AWS credentials from Streamlit secrets
+AWS_ACCESS_KEY = st.secrets["AWS_ACCESS_KEY"]
+AWS_SECRET_KEY = st.secrets["AWS_SECRET_KEY"]
+BUCKET_NAME = "real-time-stock-data-username"
+
+# ✅ Use Streamlit secrets for AWS authentication
+s3_client = boto3.client(
+    "s3",
+    aws_access_key_id=AWS_ACCESS_KEY,
+    aws_secret_access_key=AWS_SECRET_KEY,
+    region_name="us-east-1"
+)
+
 # Feature 1: Date Range Selector
 start_date = st.date_input("Start Date", df["Datetime"].min().date())
 end_date = st.date_input("End Date", df["Datetime"].max().date())
