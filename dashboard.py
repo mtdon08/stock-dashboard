@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import boto3
 import os
+import datetime
 
 from io import StringIO
 
@@ -76,9 +77,12 @@ s3_client = boto3.client(
     region_name="us-east-1"
 )
 
-# Feature 1: Date Range Selector
-start_date = st.date_input("Start Date", df["Datetime"].min().date())
-end_date = st.date_input("End Date", df["Datetime"].max().date())
+# ✅ Ensure it defaults to today’s date or the latest available stock data
+default_start_date = df["Datetime"].max().date() if not df.empty else datetime.date.today()
+default_end_date = df["Datetime"].max().date() if not df.empty else datetime.date.today()
+
+start_date = st.date_input("Start Date", default_start_date)
+end_date = st.date_input("End Date", default_end_date)
 
 # Filter the dataframe based on selected dates
 df_filtered = df[(df["Datetime"].dt.date >= start_date) & (df["Datetime"].dt.date <= end_date)]
