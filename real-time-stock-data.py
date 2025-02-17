@@ -1,7 +1,7 @@
 import yfinance as yf
 import pandas as pd
 import boto3
-import
+import os
 from io import StringIO
 from datetime import datetime
 import time  # ✅ Add this to fix the error
