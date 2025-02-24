@@ -11,3 +11,4 @@ __pycache__/
 # Ignore data files
 *.csv
 *.log
+.streamlit/secrets.toml
