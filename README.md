@@ -95,6 +95,12 @@ Build a real-time stock trading dashboard with:
 * [ ] dbt models for transformed data
 * [ ] Dashboard upgrade: add indicators
 * [ ] Secure secret management via `.env`
+* [ ] 💡 Bonus (Optional, After Launch)
+Set up logging instead of print() for future debugging.
+
+Add a dropdown to select tickers dynamically (from a list of tickers in S3).
+
+Build out more analytics or chart types (e.g., moving average, RSI, etc.)
 
 ---
 
