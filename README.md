@@ -31,13 +31,17 @@ Build a real-time stock trading dashboard with:
 ## 📅 Weekly Development Timeline (Weekend-Based)
 
 ### 🗓️ WEEK 1
+#### ✅ Saturday (Progress Log)
 
-#### ✅ Saturday
+- [ ] Review existing app code and add comments  
+  **Notes:** Currently, only `AAPL` is supported. Need to extend script to handle multiple tickers (e.g., `NVDA`, `TMUS`).  
+  Yahoo Finance API (free tier) does not support live intraday feeds — solution is to pull latest 5 days of data and update via cron job.
 
-* [ ] Review existing app code and add comments
-* [ ] Document current status in README
-* [ ] Confirm S3 bucket and files
-* [ ] Improve error handling in Streamlit
+- [ ] Document current status in README (I'm doing this right now)
+
+- [ ] Confirm S3 bucket and verify file structure (e.g., `stock_data/{ticker}_stock_data.csv`)
+
+- [ ] Improve error handling in Streamlit (e.g., when `df_filtered` is empty, show `st.warning`)
 
 #### ✅ Sunday
 
