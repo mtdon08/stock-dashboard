@@ -15,16 +15,19 @@ Build a real-time stock trading dashboard with:
 
 ## 💻 Tech Stack
 
-| Layer          | Tools Used                       |
-| -------------- | -------------------------------- |
-| Frontend       | Streamlit                        |
-| Ingestion      | Airflow, Python, yfinance        |
-| Storage        | AWS S3                           |
-| Data Warehouse | Snowflake                        |
-| Transformation | dbt (dbt-core)                   |
-| Sentiment      | Finnhub API, VADER (optional)    |
-| Orchestration  | Airflow                          |
-| Security       | `.env`, `streamlit.secrets`, IAM |
+| Layer          | Tools Used                                           |
+| -------------- | ---------------------------------------------------- |
+| Frontend       | Streamlit                                            |
+| Ingestion      | Airflow, Python, yfinance                            |
+| API Layer      | FastAPI, **Pydantic**, **REST API Design**           |
+| Storage        | AWS S3                                               |
+| Data Warehouse | Snowflake                                            |
+| Transformation | dbt (dbt-core), Pandas                               |
+| Database       | PostgreSQL, **SQLAlchemy**                           |
+| Sentiment      | Finnhub API, VADER (optional)                        |
+| Orchestration  | Airflow                                              |
+| Security       | `.env`, `streamlit.secrets`, IAM                     |
+| DevOps         | GitHub Actions, Docker (if applicable), Git          |
 
 ---
 
@@ -39,7 +42,7 @@ Build a real-time stock trading dashboard with:
 
 - [ ] Document current status in README (I'm doing this right now)
 
-- [ ] Confirm S3 bucket and verify file structure (e.g., `stock_data/{ticker}_stock_data.csv`)
+- [x] Confirm S3 bucket and verify file structure (e.g., `stock_data/{ticker}_stock_data.csv`)
 
 - [ ] Improve error handling in Streamlit (e.g., when `df_filtered` is empty, show `st.warning`)
 
@@ -104,10 +107,10 @@ Build out more analytics or chart types (e.g., moving average, RSI, etc.)
 
 ---
 
-## 🔒 Security Tips
+## 🔒 Security Tips 
 
 * NEVER commit credentials (AWS, Snowflake, API keys) to GitHub
-* Use `.env` + `python-dotenv` or `streamlit.secrets`
+* Use `.env` + `python-dotenv` or `streamlit.secrets` instead
 
 ---
 
@@ -121,7 +124,7 @@ Build out more analytics or chart types (e.g., moving average, RSI, etc.)
 
 ---
 
-## 📘 Skills You're Learning
+## 📘 Skills Inuse 
 
 * Streamlit dashboards
 * Workflow automation (Airflow)
