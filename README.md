@@ -4,12 +4,24 @@
 
 Build a real-time stock trading dashboard with:
 
-* Price & volume charting
-* Sentiment analysis
-* Automated data pipelines using Airflow
-* Data storage in AWS S3 and Snowflake
-* Transformations with dbt
-* Visualization with Streamlit
+- Price & volume charting  
+- Sentiment analysis  
+- Automated data pipelines using Airflow  
+- Data storage in AWS S3 and Snowflake  
+- Transformations with dbt  
+- Visualization with Streamlit  
+
+---
+
+## 🧠 Architecture Overview
+
+[Client (Streamlit)]
+↓
+[FastAPI API Layer] → [PostgreSQL via SQLAlchemy]
+↓ ↓
+[AWS S3 Storage] [Snowflake Warehouse]
+↓ ↓
+[Airflow Orchestration] [dbt Transformations]
 
 ---
 
@@ -19,119 +31,91 @@ Build a real-time stock trading dashboard with:
 | -------------- | ---------------------------------------------------- |
 | Frontend       | Streamlit                                            |
 | Ingestion      | Airflow, Python, yfinance                            |
-| API Layer      | FastAPI, **Pydantic**, **REST API Design**           |
+| API Layer      | FastAPI, Pydantic, REST API Design                   |
 | Storage        | AWS S3                                               |
 | Data Warehouse | Snowflake                                            |
 | Transformation | dbt (dbt-core), Pandas                               |
-| Database       | PostgreSQL, **SQLAlchemy**                           |
+| Database       | PostgreSQL, SQLAlchemy                               |
 | Sentiment      | Finnhub API, VADER (optional)                        |
 | Orchestration  | Airflow                                              |
 | Security       | `.env`, `streamlit.secrets`, IAM                     |
-| DevOps         | GitHub Actions, Docker (if applicable), Git          |
-
----
-
-## 📅 Weekly Development Timeline (Weekend-Based)
-
-### 🗓️ WEEK 1
-#### ✅ Saturday (Progress Log)
-
-- [ ] Review existing app code and add comments  
-  **Notes:** Currently, only `AAPL` is supported. Need to extend script to handle multiple tickers (e.g., `NVDA`, `TMUS`).  
-  Yahoo Finance API (free tier) does not support live intraday feeds — solution is to pull latest 5 days of data and update via cron job.
-
-- [ ] Document current status in README (I'm doing this right now)
-
-- [x] Confirm S3 bucket and verify file structure (e.g., `stock_data/{ticker}_stock_data.csv`)
-
-- [ ] Improve error handling in Streamlit (e.g., when `df_filtered` is empty, show `st.warning`)
-
-#### ✅ Sunday
-
-* [ ] Integrate Finnhub sentiment API
-* [ ] Display % bullish/bearish in dashboard
-
-### 🗓️ WEEK 2
-
-#### ✅ Saturday
-
-* [ ] Set up Airflow locally via Docker
-* [ ] Create DAG to fetch stock data and save CSV locally
-
-#### ✅ Sunday
-
-* [ ] Push daily CSVs to S3
-* [ ] Organize folder structure in S3 by ticker/date
-
-### 🗓️ WEEK 3
-
-#### ✅ Saturday
-
-* [ ] Create raw table in Snowflake
-* [ ] Set up Snowflake external stage to S3 bucket
-
-#### ✅ Sunday
-
-* [ ] Write COPY INTO command to load CSVs into Snowflake
-
-### 🗓️ WEEK 4
-
-#### ✅ Saturday
-
-* [ ] Initialize dbt project (`dbt init`)
-* [ ] Create cleaned model for stock data
-
-#### ✅ Sunday
-
-* [ ] Add indicators: moving avg, RSI in dbt model
-* [ ] Run dbt + validate in Snowflake
+| DevOps         | GitHub Actions, Docker, Git                          |
 
 ---
 
 ## 🧱 Features Being Built
 
-* [x] Streamlit UI for stock price/volume
-* [x] Date selection + timezone conversion
-* [ ] Market sentiment insight
-* [ ] Airflow ingestion pipeline
-* [ ] S3 → Snowflake raw load
-* [ ] dbt models for transformed data
-* [ ] Dashboard upgrade: add indicators
-* [ ] Secure secret management via `.env`
-* [ ] 💡 Bonus (Optional, After Launch)
-Set up logging instead of print() for future debugging.
-
-Add a dropdown to select tickers dynamically (from a list of tickers in S3).
-
-Build out more analytics or chart types (e.g., moving average, RSI, etc.)
+- [x] Streamlit UI for stock price/volume  
+- [x] Date selection + timezone conversion  
+- [ ] Market sentiment insight  
+- [ ] Airflow ingestion pipeline  
+- [ ] S3 → Snowflake raw load  
+- [ ] dbt models for transformed data  
+- [ ] Dashboard upgrade: add indicators  
+- [ ] Secure secret management via `.env`  
+- 💡 Bonus (Post-Launch):
+  - Logging for debugging  
+  - Ticker dropdown from S3  
+  - Moving average, RSI analytics  
 
 ---
 
-## 🔒 Security Tips 
+## 🔍 Notable Implementations
 
-* NEVER commit credentials (AWS, Snowflake, API keys) to GitHub
-* Use `.env` + `python-dotenv` or `streamlit.secrets` instead
+- **SQLAlchemy**: Used to model PostgreSQL tables and abstract DB logic in OOP format.  
+- **Pydantic**: Validates request and response schemas for FastAPI endpoints.  
+- **REST API Design**: Created endpoints for price retrieval, sentiment scoring, and ticker filtering.  
+- **OOP Structure**: Modular Python classes for fetchers, cleaners, uploaders, and orchestrators.  
+- **Airflow DAGs**: Automates fetching, storing to S3, and loading into Snowflake.  
+- **dbt Models**: Used for cleaning and transforming raw stock data before analytics.  
+
+---
+
+## 📡 FastAPI Endpoints (Planned)
+
+| Method | Endpoint              | Description                          |
+|--------|-----------------------|--------------------------------------|
+| GET    | `/api/price/{ticker}` | Returns recent stock price data      |
+| POST   | `/api/analyze/`       | Accepts ticker/date, returns sentiment |
+| GET    | `/api/indicators/`    | Returns MA/RSI analytics             |
+
+---
+
+## 📘 Skills in Use
+
+- Streamlit dashboards  
+- Workflow automation (Airflow)  
+- Cloud data storage (S3)  
+- Data warehousing (Snowflake)  
+- SQL transformation (dbt)  
+- API integration & NLP  
+- Project structure + security best practices  
+- Object-Oriented Python development  
+- SQLAlchemy ORM and Pydantic schema validation  
+
+---
+
+## 📚 What I Learned
+
+- Best practices for modular OOP in data pipelines  
+- How to integrate Airflow for scheduled ingestion and orchestration  
+- Secure handling of API keys and cloud credentials  
+- Tradeoffs between local processing vs. cloud-native Snowflake loading  
+- Designing maintainable, testable FastAPI services  
+
+---
+
+## 🔒 Security Tips
+
+- Never commit credentials (AWS, Snowflake, API keys)  
+- Use `.env` + `python-dotenv` or `streamlit.secrets` for secret management  
 
 ---
 
 ## ✅ Next Steps
 
-* Generate Airflow DAG + test locally
-* Create S3 loader function
-* Set up Snowflake stage + COPY commands
-* Build dbt models and test with `dbt run`
-* Expand dashboard visuals with Plotly or technical overlays
-
----
-
-## 📘 Skills Inuse 
-
-* Streamlit dashboards
-* Workflow automation (Airflow)
-* Cloud data storage (S3)
-* Data warehousing (Snowflake)
-* SQL transformation (dbt)
-* API integration & NLP
-* Project structure + security best practices
-
----
+- Finalize Airflow DAG + test  
+- Create S3 uploader module  
+- Configure Snowflake stage + COPY commands  
+- Develop and run dbt models  
+- Enhance dashboard visuals with indicators (MA, RSI, etc.)
