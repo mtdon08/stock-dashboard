@@ -14,14 +14,15 @@ Build a real-time stock trading dashboard with:
 ---
 
 ## 🧠 Architecture Overview
+## 🧠 Architecture Overview
 
-[Client (Streamlit)]
-↓
-[FastAPI API Layer] → [PostgreSQL via SQLAlchemy]
-↓ ↓
-[AWS S3 Storage] [Snowflake Warehouse]
-↓ ↓
-[Airflow Orchestration] [dbt Transformations]
+- **Frontend**: Streamlit user interface
+- **API Layer**: FastAPI application with Pydantic for validation
+- **Database**: PostgreSQL with SQLAlchemy ORM
+- **Cloud Storage**: AWS S3 for raw stock data
+- **Data Warehouse**: Snowflake for centralized analytics
+- **Transformation**: dbt for data modeling and enrichment
+- **Orchestration**: Airflow for scheduled ingestion + pipeline automation
 
 ---
 
