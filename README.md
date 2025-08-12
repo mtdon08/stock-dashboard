@@ -12,8 +12,6 @@ Build a real-time stock trading dashboard with:
 - Visualization with Streamlit  
 
 ---
-
-## 🧠 Architecture Overview
 ## 🧠 Architecture Overview
 
 - **Frontend**: Streamlit user interface
